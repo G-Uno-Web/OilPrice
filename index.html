@@ -3,6 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>今日油价查询 — 全国各省汽油柴油最新价格</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231668dc'/><text x='50' y='72' font-size='58' text-anchor='middle'>⛽</text></svg>"
+    />
+    <meta name="referrer" content="no-referrer" />
     <meta
       name="keywords"
       content="今日油价,最新油价,92#汽油,95#汽油,98#汽油,0#柴油,全国油价,油价查询,油价走势"
@@ -16,11 +22,6 @@
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8335716084958178"
       crossorigin="anonymous"
     ></script>
-    <title>今日油价查询 — 全国各省汽油柴油最新价格</title>
-    <link
-      rel="icon"
-      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231668dc'/><text x='50' y='72' font-size='58' text-anchor='middle'>⛽</text></svg>"
-    />
     <style>
       :root {
         --bg: #f5f7fa;
@@ -1153,6 +1154,7 @@
           const s = document.createElement("script");
           s.id = "_ips";
           s.charset = "GBK";
+          s.referrerPolicy = "no-referrer"; // 该接口有防盗链：携带外部网站 Referer 会被 403
           s.src = "https://whois.pconline.com.cn/ipJson.jsp";
           s.onerror = () => {
             clearTimeout(timer);
