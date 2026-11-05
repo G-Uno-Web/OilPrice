@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>今日油价查询 — 全国各省汽油柴油最新价格</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231668dc'/><text x='50' y='72' font-size='58' text-anchor='middle'>⛽</text></svg>">
 <style>
 :root{
   --bg:#f5f7fa; --card:#ffffff; --line:#e8ecf1;
@@ -359,18 +360,31 @@ function locateByPconline(){
   });
 }
 async function locateByHttp(){
-  // geojs.io（英文省名映射）
-  const EN2CN = {"beijing":"北京","tianjin":"天津","hebei":"河北","shanxi":"山西","nei mongol":"内蒙古","inner mongolia":"内蒙古","liaoning":"辽宁","jilin":"吉林","heilongjiang":"黑龙江","shanghai":"上海","jiangsu":"江苏","zhejiang":"浙江","anhui":"安徽","fujian":"福建","jiangxi":"江西","shandong":"山东","henan":"河南","hubei":"湖北","hunan":"湖南","guangdong":"广东","guangxi":"广西","hainan":"海南","chongqing":"重庆","sichuan":"四川","guizhou":"贵州","yunnan":"云南","tibet":"西藏","shaanxi":"陕西","gansu":"甘肃","qinghai":"青海","ningxia":"宁夏","xinjiang":"新疆"};
+  // 英文省名 → 中文映射（ip.sb / ipinfo 返回如 "Henan"、"Inner Mongolia"）
+  const EN2CN = {"beijing":"北京","tianjin":"天津","hebei":"河北","shanxi":"山西","nei mongol":"内蒙古","inner mongol":"内蒙古","liaoning":"辽宁","jilin":"吉林","heilongjiang":"黑龙江","shanghai":"上海","jiangsu":"江苏","zhejiang":"浙江","anhui":"安徽","fujian":"福建","jiangxi":"江西","shandong":"山东","henan":"河南","hubei":"湖北","hunan":"湖南","guangdong":"广东","guangxi":"广西","hainan":"海南","chongqing":"重庆","sichuan":"四川","guizhou":"贵州","yunnan":"云南","tibet":"西藏","shaanxi":"陕西","gansu":"甘肃","qinghai":"青海","ningxia":"宁夏","xinjiang":"新疆"};
+  const mapRegion = r => {
+    if(!r) return null;
+    const s = String(r).toLowerCase();
+    for(const k in EN2CN){ if(s.includes(k)) return EN2CN[k]; }
+    return null;
+  };
+  // 1) ip.sb（实测支持 CORS，返回英文省名）
   try{
-    const r = await fetch("https://get.geojs.io/v1/ip/geo.json",{cache:"no-store"});
-    const j = await r.json();
-    const cn = EN2CN[(j.region||"").toLowerCase()];
-    if(cn) return cn;
+    const r = await fetch("https://api.ip.sb/geoip",{cache:"no-store"});
+    if(r.ok){
+      const j = await r.json();
+      const cn = mapRegion(j.region);
+      if(cn) return cn;
+    }
   }catch(e){}
+  // 2) ipinfo.io（实测支持 CORS，返回英文省名）
   try{
-    const r = await fetch("https://ipapi.co/json/",{cache:"no-store"});
-    const j = await r.json();
-    if(j.region) return j.region; // 国内部署时部分情况直接返回中文省名
+    const r = await fetch("https://ipinfo.io/json",{cache:"no-store"});
+    if(r.ok){
+      const j = await r.json();
+      const cn = mapRegion(j.region);
+      if(cn) return cn;
+    }
   }catch(e){}
   return null;
 }
