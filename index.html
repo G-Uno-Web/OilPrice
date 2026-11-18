@@ -402,6 +402,35 @@
         color: transparent !important;
         border-radius: 4px;
       }
+      .article-links {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 10px;
+      }
+      .article-link {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 14px 16px;
+        text-decoration: none;
+        color: var(--text);
+        transition: 0.15s;
+      }
+      .article-link:hover {
+        border-color: var(--brand);
+        background: #f6faff;
+      }
+      .article-link b {
+        font-size: 14px;
+        color: var(--brand);
+      }
+      .article-link span {
+        font-size: 12.5px;
+        color: var(--sub);
+        line-height: 1.6;
+      }
       @keyframes sk {
         0% {
           background-position: 200% 0;
@@ -517,10 +546,32 @@
         <div class="sec-title" style="margin-top: 22px">历次调价明细</div>
         <div class="hist-list" id="histList"></div>
       </div>
-
+      <div class="card section">
+        <div class="sec-title">油价知识 <span class="tag">专栏文章</span></div>
+        <div class="article-links">
+          <a class="article-link" href="articles/tiaojia-jizhi.html">
+            <b>国内油价调整机制详解</b>
+            <span
+              >10 个工作日怎么算、为什么会搁浅、40 美元地板价与 130
+              美元天花板</span
+            >
+          </a>
+          <a class="article-link" href="articles/92-95-98-qubie.html">
+            <b>92、95、98 号汽油到底有什么区别？</b>
+            <span>标号代表抗爆性而非清洁度，按油箱盖标注选标号最稳妥</span>
+          </a>
+          <a class="article-link" href="articles/gesheng-youjia-chayi.html">
+            <b>为什么各省油价不一样？</b>
+            <span>海南最贵的原因、运输成本的影响、民营站便宜的真相</span>
+          </a>
+        </div>
+      </div>
       <footer>
         数据来源：公开油价接口与发改委调价信息整理，为各省市最高零售限价参考值，实际价格以当地加油站为准。<br />
         油价每 10 个工作日调整一次（依据国家发改委成品油价格机制）。
+        <a href="articles/tiaojia-jizhi.html">调价机制</a> ·
+        <a href="articles/92-95-98-qubie.html">汽油标号区别</a> ·
+        <a href="articles/gesheng-youjia-chayi.html">各省价差原因</a>
       </footer>
     </div>
 
